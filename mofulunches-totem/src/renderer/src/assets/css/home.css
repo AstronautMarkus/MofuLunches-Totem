@@ -74,3 +74,7 @@
     max-width: 100%;
     height: auto;
   }
+
+  .modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
