@@ -42,14 +42,14 @@ const Home: React.FC = () => {
           </form>
           <button type="button" className="btn btn-link mt-3" onClick={handleShow}>
             <FontAwesomeIcon icon={faInfoCircle} className="me-2" />
-            ¿Cómo insertar un RFID?
+            ¿Cómo escanear mi RFID?
           </button>
         </div>
       </main>
 
       {/* Modal */}
       {imageLoaded && (
-        <Modal show={showModal} onClose={handleClose} title="¿Cómo leer mi RFID?">
+        <Modal show={showModal} onClose={handleClose} title="¿Cómo escanear mi RFID?">
           <strong>Para escanear su etiqueta RFID, siga estos pasos:</strong>
           <ol>
             <li>Identifique su etiqueta RFID, que es circular y de color azul.</li>
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
           </ol>
           <div className="text-center">
             <img src={scanRfidGif} alt="Instrucciones RFID" className="rfid-image" />
-            <p className="text-muted">Ejemplo de cómo colocar la etiqueta RFID</p>
+            <p className="text-muted">Ejemplo de cómo escanear una etiqueta RFID</p>
           </div>
         </Modal>
       )}
