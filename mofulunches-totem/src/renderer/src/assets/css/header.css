@@ -1,3 +1,4 @@
+@import "@fontsource/suse"; 
 
 .header {
     background-color: #AC3A3A;
@@ -8,33 +9,37 @@
     padding: 1rem;
     width: 100%;
     position: relative;
-  }
-  
-  
-  .header-title {
+}
+
+.header-title {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 2.5vw;
     text-align: center;
     margin: 0;
-  }
-  
-  
-  .header-icon {
+    font-family: 'SUSE', sans-serif; 
+}
+
+.header-icon {
     font-size: 1.2em; 
-  }
-  
-  /* Media queries */
-  @media (max-width: 768px) {
-    .header-title {
-      font-size: 5vw;
+}
+
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1.5rem; 
     }
-  }
-  
-  @media (max-width: 480px) {
     .header-title {
-      font-size: 6vw;
+        font-size: 6vw; 
     }
-  }
-  
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 2rem; 
+    }
+    .header-title {
+        font-size: 10vw; 
+    }
+}
