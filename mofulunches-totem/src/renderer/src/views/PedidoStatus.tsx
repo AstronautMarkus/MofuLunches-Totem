@@ -36,8 +36,10 @@ const PedidoStatus: React.FC = () => {
             </div>
           </div>
           <div className="button-group mt-4 d-flex justify-content-center gap-3">
-            <button className="btn btn-success">Retirar pedido</button>
-            <Link to="/" className="btn btn-primary">
+          <Link to="/thanks-order" className="btn btn-primary">
+              Retirar pedido
+            </Link>
+            <Link to="/" className="btn btn-secondary">
               Volver
             </Link>
           </div>
