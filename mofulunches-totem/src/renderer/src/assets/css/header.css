@@ -25,6 +25,11 @@
     font-size: 1.2em; 
 }
 
+.header-image {
+    width: 70px;
+    margin-right: 10px;
+    height: auto;
+}
 
 @media (max-width: 768px) {
     .header {

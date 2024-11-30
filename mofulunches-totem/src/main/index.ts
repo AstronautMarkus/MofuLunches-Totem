@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { app, shell, BrowserWindow, ipcMain } from 'electron';
+import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
@@ -15,9 +15,12 @@ function createWindow(): void {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
-    }
+      sandbox: false,
+      webSecurity: false, // Mantén desactivado para permitir CORS en dev
+    },
   });
+
+  const apiUrl = process.env['API_URL'];
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
@@ -28,6 +31,7 @@ function createWindow(): void {
     return { action: 'deny' };
   });
 
+  // Carga la aplicación dependiendo del entorno
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
   } else {
@@ -53,3 +57,7 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+// Verifica que la variable `API_URL` esté correcta
+const API_URL = process.env['API_URL'];
+console.log('API_URL:', API_URL); // Para confirmar que la URL de la API está cargada
