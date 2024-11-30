@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import '../assets/css/home.css';
 
 const ThanksOrder: React.FC = () => {
@@ -23,12 +23,12 @@ const ThanksOrder: React.FC = () => {
               <p><strong>Código del pedido:</strong> {pedido.cod_unico}</p>
               <p><strong>Estado:</strong> {pedido.estado}</p>
               <p><strong>Hora de retiro:</strong> {pedido.hora_retiro}</p>
-              <p><strong>Hora de modificación:</strong> {pedido.hora_modificacion}</p>
             </div>
           )}
-          <Link to='/' className='btn btn-primary btn-consultar mt-4'>
-            Regresar al inicio
+          <Link to='/' className='btn btn-danger btn-consultar mt-4'>
+            <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> Regresar al inicio
           </Link>
+          <p className='mt-4 lead'>Gracias por usar MofuLunches! ᗜˬᗜ</p>
         </div>
       </main>
       <Footer />

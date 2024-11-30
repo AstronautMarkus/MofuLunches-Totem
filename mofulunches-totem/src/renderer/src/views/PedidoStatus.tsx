@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle, faEye, faCheckCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
@@ -92,8 +92,8 @@ const PedidoStatus: React.FC = () => {
                   <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> Este pedido ya ha sido retirado y no puede ser actualizado.
                 </p>
               )}
-              <button className="btn btn-secondary mt-2" onClick={handleShow}>
-                Ver contenido
+              <button className="btn btn-info mt-2" onClick={handleShow}>
+                <FontAwesomeIcon icon={faEye} className="me-2" /> Ver contenido
               </button>
             </div>
             <div className="mb-3">
@@ -107,12 +107,12 @@ const PedidoStatus: React.FC = () => {
           </div>
           <div className="button-group mt-4 d-flex justify-content-center gap-3">
             {!isRetirado && (
-              <button className="btn btn-primary" onClick={handleConfirmShow}>
-                Retirar pedido
+              <button className="btn btn-success" onClick={handleConfirmShow}>
+                <FontAwesomeIcon icon={faCheckCircle} className="me-2" /> Retirar pedido
               </button>
             )}
-            <Link to="/" className="btn btn-secondary">
-              Volver
+            <Link to="/" className="btn btn-danger">
+              <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> Volver
             </Link>
           </div>
         </div>
@@ -137,8 +137,8 @@ const PedidoStatus: React.FC = () => {
         <Modal show={showConfirmModal} onClose={handleConfirmClose} title="Confirmar Retiro">
           <p>¿Está seguro de que desea confirmar el retiro del pedido?</p>
           <div className="d-flex justify-content-center gap-3">
-            <button className="btn btn-primary" onClick={handleConfirm}>
-              Confirmar
+            <button className="btn btn-success" onClick={handleConfirm}>
+              <FontAwesomeIcon icon={faCheckCircle} className="me-2" /> Confirmar
             </button>
             <button className="btn btn-secondary" onClick={handleConfirmClose}>
               Cancelar

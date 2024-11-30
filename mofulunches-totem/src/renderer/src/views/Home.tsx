@@ -128,7 +128,7 @@ const Home: React.FC = () => {
             </div>
             {loading && <p className="text-primary">Cargando...</p>}
             {error && <p className="text-danger">{error}</p>}
-            <button type="submit" className="btn btn-primary w-100 btn-consultar" disabled={loading}>
+            <button type="submit" className="btn btn-info w-100 btn-consultar" disabled={loading}>
               {loading ? 'Consultando...' : <><FontAwesomeIcon icon={faSearch} className="me-2" />Consultar</>}
             </button>
           </form>
