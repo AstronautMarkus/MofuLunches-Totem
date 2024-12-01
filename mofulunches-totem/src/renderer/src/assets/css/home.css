@@ -1,0 +1,79 @@
+.main-content {
+  width: 90%;
+  max-width: 600px;
+}
+
+.main-title {
+  font-size: 2.5rem; 
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.5rem;
+  }
+}
+
+.main-text {
+  font-size: 1.5rem; 
+}
+
+@media (max-width: 768px) {
+  .main-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-text {
+    font-size: 1rem;
+  }
+}
+
+.input-code {
+  font-size: 1.25rem; 
+  padding: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .input-code {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-code {
+    font-size: 0.8rem;
+  }
+}
+
+.btn-consultar {
+  font-size: 1.25rem; 
+  padding: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .btn-consultar {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-consultar {
+    font-size: 0.8rem;
+  }
+}
+
+.rfid-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.modal-backdrop.show {
+  background-color: rgba(0, 0, 0, 0.75);
+}

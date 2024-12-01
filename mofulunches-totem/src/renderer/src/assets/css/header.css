@@ -1,0 +1,50 @@
+@import "@fontsource/suse"; 
+
+.header {
+    background-color: #AC3A3A;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    position: relative;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 2.5vw;
+    text-align: center;
+    margin: 0;
+    font-family: 'SUSE', sans-serif; 
+}
+
+.header-icon {
+    font-size: 1.2em; 
+}
+
+.header-image {
+    width: 70px;
+    margin-right: 10px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1.5rem; 
+    }
+    .header-title {
+        font-size: 6vw; 
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 2rem; 
+    }
+    .header-title {
+        font-size: 10vw; 
+    }
+}
