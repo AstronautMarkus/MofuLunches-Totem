@@ -8,6 +8,15 @@ import { faSearch, faInfoCircle, faBurger } from '@fortawesome/free-solid-svg-ic
 import '../assets/css/home.css';
 import scanRfidGif from '../assets/img/scan_rfid.gif';
 
+declare global {
+  interface Window {
+    api: {
+      onRfidCode: (callback: (code: string) => void) => void;
+      removeRfidCodeListener: () => void;
+    };
+  }
+}
+
 const Home: React.FC = () => {
   const [codigo, setCodigo] = useState('');
   const [error, setError] = useState('');
@@ -24,10 +33,27 @@ const Home: React.FC = () => {
     img.onload = () => setImageLoaded(true);
   }, []);
 
+  useEffect(() => {
+    const handleRfidCode = (code: string) => {
+      setCodigo(code);
+      handleSubmit(new Event('submit')).catch((error) => {
+        console.error('Error during form submission:', error);
+      });
+    };
+
+    // Escucha eventos de código RFID
+    window.api.onRfidCode(handleRfidCode);
+
+    return () => {
+      // Elimina listeners cuando el componente se desmonta
+      window.api.removeRfidCodeListener();
+    };
+  }, []);
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent | Event) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -45,21 +71,17 @@ const Home: React.FC = () => {
 
       // Get all users
       const response = await fetch(`${API_URL}/usuarios`, { method: 'GET' });
-      console.log('Respuesta del servidor (usuarios):', response);
 
       if (!response.ok) {
-        console.error('Error en la respuesta de usuarios:', response.status, response.statusText);
         setError('Error en la conexión con la API.');
         setLoading(false);
         return;
       }
 
       const usuarios = await response.json();
-      console.log('Usuarios recibidos:', usuarios);
 
       // Search user by RFID code
       const usuarioEncontrado = usuarios.find((u: any) => u.codigo_RFID === codigo);
-      console.log('Usuario encontrado:', usuarioEncontrado);
 
       if (!usuarioEncontrado) {
         setError('El código RFID ingresado no existe.');
@@ -70,20 +92,15 @@ const Home: React.FC = () => {
       console.log(`Consultando pedidos diarios para el usuario ${usuarioEncontrado.rut}...`);
 
       // Check daily pedidos
-      const pedidosResponse = await fetch(`${API_URL}/pedidos/diarios/${usuarioEncontrado.rut}`, {
-        method: 'GET',
-      });
-      console.log('Respuesta del servidor (pedidos):', pedidosResponse);
+      const pedidosResponse = await fetch(`${API_URL}/pedidos/diarios/${usuarioEncontrado.rut}`, { method: 'GET' });
 
       if (!pedidosResponse.ok) {
-        console.error('Error en la respuesta de pedidos:', pedidosResponse.status, pedidosResponse.statusText);
         setError('Error al consultar los pedidos.');
         setLoading(false);
         return;
       }
 
       const pedidos = await pedidosResponse.json();
-      console.log('Pedidos recibidos:', pedidos);
 
       if (pedidos.length === 0) {
         setError('No se encontró un pedido diario asociado al código del usuario.');

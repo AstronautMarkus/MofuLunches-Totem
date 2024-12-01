@@ -44,6 +44,19 @@ const rfid_middleware = spawn(join(__dirname, '../../resources/rfid_middleware/r
 
 rfid_middleware.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
+  try {
+    // Reemplaza comillas simples por comillas dobles para que sea un JSON válido
+    const jsonString = data.toString().replace(/'/g, '"');
+    const parsedData = JSON.parse(jsonString);
+    if (parsedData.code === 30) {
+      const code = parsedData.data;
+      BrowserWindow.getAllWindows().forEach(window => {
+        window.webContents.send('rfid-code', code);
+      });
+    }
+  } catch (error) {
+    console.error('Error parsing RFID middleware data:', error);
+  }
 });
 
 
