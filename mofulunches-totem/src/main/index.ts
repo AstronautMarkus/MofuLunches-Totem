@@ -5,6 +5,7 @@ import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
+import { spawn } from 'child_process';
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -20,7 +21,6 @@ function createWindow(): void {
     },
   });
 
-  const apiUrl = process.env['API_URL'];
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
@@ -38,6 +38,14 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
 }
+
+
+const rfid_middleware = spawn(join(__dirname, '../../resources/rfid_middleware/rfid_middleware'), ['-u']);
+
+rfid_middleware.stdout.on('data', (data) => {
+  console.log(`stdout: ${data}`);
+});
+
 
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.electron');
@@ -58,6 +66,3 @@ app.on('window-all-closed', () => {
   }
 });
 
-// Verifica que la variable `API_URL` esté correcta
-const API_URL = process.env['API_URL'];
-console.log('API_URL:', API_URL); // Para confirmar que la URL de la API está cargada
