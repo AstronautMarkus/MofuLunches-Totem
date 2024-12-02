@@ -40,7 +40,7 @@ function createWindow(): void {
 }
 
 
-const rfid_middleware = spawn(join(__dirname, '../../resources/rfid_middleware/rfid_middleware'), ['-u']);
+const rfid_middleware = spawn(join(__dirname, '../../resources/ElDimon/ElDimon'), ['-u']);
 
 rfid_middleware.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
