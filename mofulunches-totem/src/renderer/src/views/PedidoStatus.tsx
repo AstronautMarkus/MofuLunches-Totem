@@ -68,6 +68,19 @@ const PedidoStatus: React.FC = () => {
     }
   };
 
+  const getStatusDisplay = (estado: string) => {
+    switch (estado) {
+      case 'retirado':
+        return 'Pedido Retirado';
+      case 'listo_para_retiro':
+        return 'Listo para Retirar';
+      case 'preparando':
+        return 'En Preparación';
+      default:
+        return estado;
+    }
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
@@ -88,7 +101,7 @@ const PedidoStatus: React.FC = () => {
             </div>
             <div className="mb-3">
               <h5>Estado del pedido</h5>
-              <p className="order-info">{pedido.estado}</p>
+              <p className="order-info">{getStatusDisplay(pedido.estado)}</p>
               {isRetirado && (
                 <p className="text-warning">
                   <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> Este pedido ya ha sido retirado y no puede ser actualizado.
