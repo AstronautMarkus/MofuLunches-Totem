@@ -33,6 +33,7 @@ const PedidoStatus: React.FC = () => {
 
   // Check if pedido is already 'retirado'
   const isRetirado = pedido.estado === 'retirado';
+  const isListoParaRetirar = pedido.estado === 'listo_para_retirar';
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -92,6 +93,11 @@ const PedidoStatus: React.FC = () => {
                   <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> Este pedido ya ha sido retirado y no puede ser actualizado.
                 </p>
               )}
+              {!isRetirado && !isListoParaRetirar && (
+                <p className="text-warning">
+                  <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> El pedido no está listo para retirar.
+                </p>
+              )}
               <button className="btn btn-info mt-2" onClick={handleShow}>
                 <FontAwesomeIcon icon={faEye} className="me-2" /> Ver contenido
               </button>
@@ -106,7 +112,7 @@ const PedidoStatus: React.FC = () => {
             </div>
           </div>
           <div className="button-group mt-4 d-flex justify-content-center gap-3">
-            {!isRetirado && (
+            {!isRetirado && isListoParaRetirar && (
               <button className="btn btn-success" onClick={handleConfirmShow}>
                 <FontAwesomeIcon icon={faCheckCircle} className="me-2" /> Retirar pedido
               </button>
