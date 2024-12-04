@@ -23,6 +23,7 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isProgrammatic, setIsProgrammatic] = useState(false); // New state
 
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
@@ -35,10 +36,11 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const handleRfidCode = (code: string) => {
-      setCodigo(code);
+      setIsProgrammatic(true); // Set flag to true
+      setCodigo(code.toString());
     };
 
-    // Escucha eventos de código RFID
+    // Listen RFID events
     window.api.onRfidCode(handleRfidCode);
 
     return () => {
@@ -48,12 +50,13 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (codigo) {
+    if (codigo && isProgrammatic) {
       handleSubmit(new Event('submit')).catch((error) => {
         console.error('Error during form submission:', error);
       });
+      setIsProgrammatic(false); // Reset flag after submission
     }
-  }, [codigo]);
+  }, [codigo, isProgrammatic]);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -145,7 +148,10 @@ const Home: React.FC = () => {
                 id="codigo"
                 placeholder="Escribe tu código aquí"
                 value={codigo}
-                onChange={(e) => setCodigo(e.target.value)}
+                onChange={(e) => {
+                  setIsProgrammatic(false); // Set flag to false for manual input
+                  setCodigo(e.target.value);
+                }}
               />
             </div>
             {loading && <p className="text-primary">Cargando...</p>}
