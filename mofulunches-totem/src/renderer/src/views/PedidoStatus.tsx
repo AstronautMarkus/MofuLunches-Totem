@@ -33,7 +33,8 @@ const PedidoStatus: React.FC = () => {
 
   // Check if pedido is already 'retirado'
   const isRetirado = pedido.estado === 'retirado';
-  const isListoParaRetirar = pedido.estado === 'listo_para_retirar';
+  const isListoParaRetirar = pedido.estado === 'listo_para_retiro';
+  const isPreparando = pedido.estado === 'preparando';
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -67,6 +68,19 @@ const PedidoStatus: React.FC = () => {
     }
   };
 
+  const getStatusDisplay = (estado: string) => {
+    switch (estado) {
+      case 'retirado':
+        return 'Pedido Retirado';
+      case 'listo_para_retiro':
+        return 'Listo para Retirar';
+      case 'preparando':
+        return 'En Preparación';
+      default:
+        return estado;
+    }
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
@@ -87,15 +101,20 @@ const PedidoStatus: React.FC = () => {
             </div>
             <div className="mb-3">
               <h5>Estado del pedido</h5>
-              <p className="order-info">{pedido.estado}</p>
+              <p className="order-info">{getStatusDisplay(pedido.estado)}</p>
               {isRetirado && (
                 <p className="text-warning">
                   <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> Este pedido ya ha sido retirado y no puede ser actualizado.
                 </p>
               )}
-              {!isRetirado && !isListoParaRetirar && (
+              {isPreparando && (
                 <p className="text-warning">
-                  <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> El pedido no está listo para retirar.
+                  <FontAwesomeIcon icon={faExclamationCircle} className="ms-2" /> El pedido está siendo preparado.
+                </p>
+              )}
+              {isListoParaRetirar && (
+                <p className="text-success">
+                  <FontAwesomeIcon icon={faCheckCircle} className="ms-2" /> El pedido está listo para retirar.
                 </p>
               )}
               <button className="btn btn-info mt-2" onClick={handleShow}>

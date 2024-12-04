@@ -36,9 +36,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     const handleRfidCode = (code: string) => {
       setCodigo(code);
-      handleSubmit(new Event('submit')).catch((error) => {
-        console.error('Error during form submission:', error);
-      });
     };
 
     // Escucha eventos de código RFID
@@ -49,6 +46,14 @@ const Home: React.FC = () => {
       window.api.removeRfidCodeListener();
     };
   }, []);
+
+  useEffect(() => {
+    if (codigo) {
+      handleSubmit(new Event('submit')).catch((error) => {
+        console.error('Error during form submission:', error);
+      });
+    }
+  }, [codigo]);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
