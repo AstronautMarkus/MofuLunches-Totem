@@ -17,7 +17,7 @@ function createWindow(): void {
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      webSecurity: false, // Mantén desactivado para permitir CORS en dev
+      webSecurity: false, // DEBUG keep disabled for demo purposes
     },
   });
 
@@ -31,7 +31,7 @@ function createWindow(): void {
     return { action: 'deny' };
   });
 
-  // Carga la aplicación dependiendo del entorno
+
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
   } else {
@@ -45,11 +45,10 @@ const rfid_middleware = spawn(join(__dirname, '../../resources/ElDimon/ElDimon')
 rfid_middleware.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
   try {
-    // Reemplaza comillas simples por comillas dobles para que sea un JSON válido
     const jsonString = data.toString().replace(/'/g, '"');
     const parsedData = JSON.parse(jsonString);
     if (parsedData.code === 30) {
-      const code = parsedData.data;
+      const code = parsedData.data.toString();
       BrowserWindow.getAllWindows().forEach(window => {
         window.webContents.send('rfid-code', code);
       });
